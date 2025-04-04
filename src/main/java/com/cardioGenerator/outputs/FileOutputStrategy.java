@@ -1,4 +1,5 @@
-package com.cardiogenerator.outputs;
+package com.cardioGenerator.outputs; //no underscores in package names
+
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,9 +29,9 @@ public class FileOutputStrategy implements OutputStrategy {         //class name
         }
         // Set the FilePath variable
         //lowerCamelCase
+        //4.5.1 The primary goal for line wrapping is to have clear code, not necessarily code that fits in the smallest number of lines.
         String filePath = fileMap.computeIfAbsent(label, k ->
                 Paths.get(baseDirectory, label + ".txt").toString());
-        //4.5.1 The primary goal for line wrapping is to have clear code, not necessarily code that fits in the smallest number of lines.
 
         // Write the data to the file
         try (

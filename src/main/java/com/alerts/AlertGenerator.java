@@ -1,7 +1,8 @@
 package com.alerts;
 
-import com.data_management.DataStorage;
-import com.data_management.Patient;
+//no underscores, Package names use only lowercase letters and digits
+import com.dataManagement.DataStorage;
+import com.dataManagement.Patient;
 
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data

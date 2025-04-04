@@ -1,6 +1,6 @@
-package com.cardio_generator.generators;
+package com.cardioGenerator.generators;
 
-import com.cardio_generator.outputs.OutputStrategy;
+import com.cardioGenerator.outputs.OutputStrategy;
 
 public interface PatientDataGenerator {
     void generate(int patientId, OutputStrategy outputStrategy);

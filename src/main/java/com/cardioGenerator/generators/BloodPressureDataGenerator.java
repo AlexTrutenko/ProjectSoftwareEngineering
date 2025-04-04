@@ -1,8 +1,8 @@
-package com.cardio_generator.generators;
+package com.cardioGenerator.generators;
 
 import java.util.Random;
 
-import com.cardio_generator.outputs.OutputStrategy;
+import com.cardioGenerator.outputs.OutputStrategy;
 
 public class BloodPressureDataGenerator implements PatientDataGenerator {
     private static final Random random = new Random();
