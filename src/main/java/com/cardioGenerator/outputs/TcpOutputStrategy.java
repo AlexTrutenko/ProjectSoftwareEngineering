@@ -5,13 +5,23 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
-
+/**This class is used for creating of a TCP output. It implements OutputStrategy interface.
+ * This application starts a server socket and waits for a client to connect.
+ * If connected, shows the outputed data of a patient in a specific format:
+ * 
+ * Patient ID, timestamp, label and data.
+ * @author Oleksandr Trutenko
+ * 
+ */
 public class TcpOutputStrategy implements OutputStrategy {
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
-
+    /**Starts a TCP server socket on the given port and wait for a client connection.
+     * 
+     * @param port - The TCP port to listen on.
+     */
     public TcpOutputStrategy(int port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -31,7 +41,16 @@ public class TcpOutputStrategy implements OutputStrategy {
             e.printStackTrace();
         }
     }
-
+    /**Sends a patient data line to a connected client via TCP.
+     * It only sends output if the client is connected and ready. 
+     * 
+     * @param patientID - patient identification.
+     * @param timestamp - timestamp of the data.
+     * @param label - data label.
+     * @param data - actual data value.
+     * 
+     * @return a formated data via TCP.
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         if (out != null) {
