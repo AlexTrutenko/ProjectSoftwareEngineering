@@ -7,17 +7,34 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
+/** This class writes a patient data to different text files for each data category.
+ * Each category is stored in its own file with patient ID, timestamp and value. 
+ * Files are created under specific base directory.
+ * 
+ * @author Oleksandr Trutenko
+ */
 
 public class FileOutputStrategy implements OutputStrategy {         //class name should be UpperCamelCase
 
     private String baseDirectory;   //variable must be lowerCamelCase
 
     public final ConcurrentHashMap<String, String> fileMap = new ConcurrentHashMap<>();   //it should be lowerCamelCase
-
+     /** Creates a file output strategy for the given directory. 
+     * 
+     * @param baseDirectory - the directory where the output files will be saved.
+     */
     public FileOutputStrategy(String baseDirectory) {
         this.baseDirectory = baseDirectory; //no space between
     }
-
+    /** Adds patient data to a file associated with the data label.
+     *  Each line is appended in a specific format: 
+     * patient ID, timestamp, label, data.
+     * 
+     * @param patientID - a unique identification of a patient.
+     * @param timestamp - the timestamp of data.
+     * @param label - the type of data to output.
+     * @param data - the actual data value.
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         try {
