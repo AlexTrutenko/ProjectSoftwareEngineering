@@ -27,7 +27,7 @@ public class AlertGenerator implements PatientDataGenerator {
        if patient's alert status is false, the new alert may be triggered using a Poisson-based model.
 
        @return The method output is either "resolved" or "triggered"
-       @param patientID - represents patient ID
+       @param patientId - represents patient ID
        @param outputStrategy - the strategy used to handle the generated alert data
      * 
      */
