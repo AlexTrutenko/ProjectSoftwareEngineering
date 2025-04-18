@@ -3,6 +3,11 @@ package com.alerts;
 //no underscores, Package names use only lowercase letters and digits
 import com.dataManagement.DataStorage;
 import com.dataManagement.Patient;
+import com.dataManagement.PatientRecord;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data
@@ -11,7 +16,9 @@ import com.dataManagement.Patient;
  * it against specific health criteria.
  */
 public class AlertGenerator {
-    private DataStorage dataStorage;
+    private final DataStorage dataStorage;
+    private final List<AlertTriggerCondition> triggerConditions;
+    private final List<Alert> generatedAlerts;
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
@@ -23,6 +30,15 @@ public class AlertGenerator {
      */
     public AlertGenerator(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
+        this.generatedAlerts = new ArrayList<>();
+        this.triggerConditions = Arrays.asList(
+                new BloodPressureAlert(true),          // Systolic
+                new BloodPressureAlert(false),         // Diastolic
+                new BloodSaturationAlert(),
+                new HypotensiveHypoxemiaAlert(),
+                new ECGDataAlert(),
+                new AlertTriggered()
+        );
     }
 
     /**
@@ -36,9 +52,17 @@ public class AlertGenerator {
      * @param patient the patient data to evaluate for alert conditions
      */
     public void evaluateData(Patient patient) {
-        // Implementation goes here
-    }
+        int patientId = patient.getPatientId();
+        long now = System.currentTimeMillis();
+        List<PatientRecord> records = dataStorage.getRecords(patientId, 0, now);
 
+        for (AlertTriggerCondition triggerCondition : triggerConditions) {
+            List<Alert> alerts = triggerCondition.evaluate(patientId, records);
+            for (Alert alert : alerts) {
+                triggerAlert(alert);
+            }
+        }
+    }
     /**
      * Triggers an alert for the monitoring system. This method can be extended to
      * notify medical staff, log the alert, or perform other actions. The method
@@ -48,6 +72,11 @@ public class AlertGenerator {
      * @param alert the alert object containing details about the alert condition
      */
     private void triggerAlert(Alert alert) {
-        // Implementation might involve logging the alert or notifying staff
+        System.out.println("Attention! Patient " + alert.getPatientId() + ": "
+                + alert.getCondition() + " at " + alert.getTimestamp());
+        generatedAlerts.add(alert);
+    }
+    public List<Alert> getGeneratedAlerts() {
+        return new ArrayList<>(generatedAlerts);
     }
 }
