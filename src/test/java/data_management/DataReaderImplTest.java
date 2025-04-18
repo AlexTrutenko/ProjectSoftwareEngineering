@@ -67,8 +67,8 @@ class DataReaderImplTest {
         Path f = tmp.resolve("single.csv");
         Files.writeString(
                 f,
-                "patientId,measurementValue,recordType,timestamp%n" +
-                        "42,37.5,HR,1617973123000%n".formatted(),
+                "patientId,measurementValue,recordType,timestamp\n" +
+                        "42,37.5,HR,1617973123000\n".formatted(),
                 StandardCharsets.UTF_8);
 
         new DataReaderImpl(f.toString()).readData(storage);
@@ -104,7 +104,7 @@ class DataReaderImplTest {
     void headerOnly_fileProducesNoCalls() throws IOException {
         Path f = tmp.resolve("header.csv");
         Files.writeString(f,
-                "patientId,measurementValue,recordType,timestamp%n",
+                "patientId,measurementValue,recordType,timestamp\n",
                 StandardCharsets.UTF_8);
 
         new DataReaderImpl(f.toString()).readData(storage);
