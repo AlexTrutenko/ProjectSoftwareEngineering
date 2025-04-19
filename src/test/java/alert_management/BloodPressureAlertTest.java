@@ -6,11 +6,21 @@ import com.dataManagement.PatientRecord;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class BloodPressureAlertTest {
+/**
+ * Unit tests for {@code BloodPressureAlert}.
+ *
+ * This code verifies:
+ *
+ *   detection of an increasing blood‑pressure trend,
+ *   detection of a decreasing trend, and
+ *   handling of critical threshold breaches for each blood‑pressure type
+ *       (systolic and diastolic).
+ *
+ */
 
+class BloodPressureAlertTest {
 
     private static PatientRecord rec(int id, double value, String type, long ts) {
         return new PatientRecord(id, value, type, ts);
@@ -70,8 +80,7 @@ class BloodPressureAlertTest {
     void systolic_below90_triggersCriticalAlert() {
         BloodPressureAlert trigger = new BloodPressureAlert(true); // systolic
 
-        List<Alert> alerts = trigger.evaluate(
-                4,
+        List<Alert> alerts = trigger.evaluate(4,
                 List.of(rec(4, 85, "SystolicPressure", 10))
         );
 
