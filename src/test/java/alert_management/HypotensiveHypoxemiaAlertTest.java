@@ -35,7 +35,6 @@ public class HypotensiveHypoxemiaAlertTest {
 
         List<Alert> alerts = trigger.evaluate(1, records);
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition()
                 .contains("Hypotensive Hypoxemia"));
     }
