@@ -26,9 +26,9 @@ class BloodPressureAlertTest {
         return new PatientRecord(id, value, type, ts);
     }
 
-    //increasing trend
+    //increasing trend for systolic
     @Test
-    void systolic_increasingTrend_triggersAlert() {
+    void systolic_increasingTrend() {
         BloodPressureAlert trigger = new BloodPressureAlert(true);   // systolic
 
         List<PatientRecord> records = List.of(
@@ -42,9 +42,41 @@ class BloodPressureAlertTest {
         assertTrue(alerts.get(0).getCondition().contains("increasing trend"));
     }
 
-    //decreasing trend
+    //decreasing trend for systolic
     @Test
-    void diastolic_decreasingTrend_triggersAlert() {
+    void systolic_decreasingTrend() {
+        BloodPressureAlert trigger = new BloodPressureAlert(true);   // systolic
+
+        List<PatientRecord> records = List.of(
+                rec(1, 160, "SystolicPressure", 1),
+                rec(1, 145, "SystolicPressure", 2),
+                rec(1, 129, "SystolicPressure", 3)
+        );
+
+        List<Alert> alerts = trigger.evaluate(1, records);
+
+        assertTrue(alerts.get(0).getCondition().contains("decreasing trend"));
+    }
+
+    //incresing trend for diastolic
+    @Test
+    void diastolic_increasingTrend() {
+        BloodPressureAlert trigger = new BloodPressureAlert(false);   // diastolic
+
+        List<PatientRecord> records = List.of(
+                rec(1, 80, "DiastolicPressure", 1),
+                rec(1, 95, "DiastolicPressure", 2),
+                rec(1, 110, "DiastolicPressure", 3)
+        );
+
+        List<Alert> alerts = trigger.evaluate(1, records);
+
+        assertTrue(alerts.get(0).getCondition().contains("increasing trend"));
+    }
+
+    //decreasing trend for diastolic
+    @Test
+    void diastolic_decreasingTrend() {
         BloodPressureAlert trigger = new BloodPressureAlert(false);  // diastolic
 
         List<PatientRecord> records = List.of(
@@ -60,7 +92,7 @@ class BloodPressureAlertTest {
 
     //high thresholds for systolic
     @Test
-    void systolic_above180_triggersCriticalAlert() {
+    void systolic_above180() {
         BloodPressureAlert trigger = new BloodPressureAlert(true); // systolic
 
         List<Alert> alerts = trigger.evaluate(
@@ -74,7 +106,7 @@ class BloodPressureAlertTest {
 
     //low thresholds for systolic
     @Test
-    void systolic_below90_triggersCriticalAlert() {
+    void systolic_below90() {
         BloodPressureAlert trigger = new BloodPressureAlert(true); // systolic
 
         List<Alert> alerts = trigger.evaluate(4,
@@ -87,7 +119,7 @@ class BloodPressureAlertTest {
 
     //high thresholds for diastolic
     @Test
-    void diastolic_above120_triggersCriticalAlert() {
+    void diastolic_above120() {
         BloodPressureAlert trigger = new BloodPressureAlert(false); // diastolic
 
         List<Alert> alerts = trigger.evaluate(
@@ -101,7 +133,7 @@ class BloodPressureAlertTest {
 
     //low thresholds for diastolic
     @Test
-    void diastolic_below60_triggersCriticalAlert() {
+    void diastolic_below60() {
         BloodPressureAlert trigger = new BloodPressureAlert(false); // diastolic
 
         List<Alert> alerts = trigger.evaluate(

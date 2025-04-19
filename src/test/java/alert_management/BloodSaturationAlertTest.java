@@ -27,7 +27,7 @@ public class BloodSaturationAlertTest {
 
     //Test for Low Saturation
     @Test
-    void lowSaturation_triggersAlert() {
+    void lowSaturation() {
 
         BloodSaturationAlert trigger = new BloodSaturationAlert();
 
@@ -43,7 +43,7 @@ public class BloodSaturationAlertTest {
 
     //Test for Rapid Drop:
     @Test
-    void rapidDropWithinTenMinutes_triggersAlert() {
+    void rapidDropWithin() {
 
         BloodSaturationAlert trigger = new BloodSaturationAlert();
 
