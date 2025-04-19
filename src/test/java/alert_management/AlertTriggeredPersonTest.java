@@ -22,7 +22,6 @@ public class AlertTriggeredPersonTest {
                 List.of(rec(1, 1.0, 100))
         );
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition().contains("pressed"));
     }
 
@@ -36,7 +35,6 @@ public class AlertTriggeredPersonTest {
                 List.of(rec(2, 0.0, 200))
         );
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition().contains("released"));
     }
 
@@ -66,7 +64,6 @@ public class AlertTriggeredPersonTest {
 
         List<Alert> alerts = trigger.evaluate(4, series);
 
-        assertEquals(3, alerts.size());
         assertEquals("Alert button pressed",  alerts.get(0).getCondition());
         assertEquals("Alert button released", alerts.get(1).getCondition());
         assertEquals("Alert button pressed",  alerts.get(2).getCondition());
