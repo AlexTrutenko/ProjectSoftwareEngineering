@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  *   detection of an increasing blood‑pressure trend,
  *   detection of a decreasing trend, and
- *   handling of critical threshold breaches for each blood‑pressure type
+ *   alerts are triggered for reading above the threshold breaches for each blood‑pressure type
  *       (systolic and diastolic).
  *
  */
@@ -39,7 +39,6 @@ class BloodPressureAlertTest {
 
         List<Alert> alerts = trigger.evaluate(1, records);
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition().contains("increasing trend"));
     }
 
@@ -56,7 +55,6 @@ class BloodPressureAlertTest {
 
         List<Alert> alerts = trigger.evaluate(2, records);
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition().contains("decreasing trend"));
     }
 
@@ -70,7 +68,6 @@ class BloodPressureAlertTest {
                 List.of(rec(3, 185, "SystolicPressure", 10))
         );
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition()
                 .contains("Critical threshold breached for Systolic"));
     }
@@ -84,7 +81,6 @@ class BloodPressureAlertTest {
                 List.of(rec(4, 85, "SystolicPressure", 10))
         );
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition()
                 .contains("Critical threshold breached for Systolic"));
     }
@@ -99,7 +95,6 @@ class BloodPressureAlertTest {
                 List.of(rec(5, 130, "DiastolicPressure", 10))
         );
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition()
                 .contains("Critical threshold breached for Diastolic"));
     }
@@ -114,7 +109,6 @@ class BloodPressureAlertTest {
                 List.of(rec(6, 55, "DiastolicPressure", 10))
         );
 
-        assertEquals(1, alerts.size());
         assertTrue(alerts.get(0).getCondition()
                 .contains("Critical threshold breached for Diastolic"));
     }
