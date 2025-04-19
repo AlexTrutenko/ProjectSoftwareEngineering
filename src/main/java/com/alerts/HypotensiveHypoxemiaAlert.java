@@ -7,23 +7,23 @@ import java.util.ArrayList;
 public class HypotensiveHypoxemiaAlert implements AlertTriggerCondition {
     @Override
     public List<Alert> evaluate(int patientId, List<PatientRecord> records) {
-        Double SystolicPressure = 0.0;
-        Double Saturation = 0.0;
+        double systolicPressure = 0.0;
+        double saturation = 0.0;
         long timeStamp = 0;
         for (PatientRecord r : records) {
             if ("SystolicPressure".equals(r.getRecordType())) {
-                SystolicPressure = r.getMeasurementValue();
+                systolicPressure = r.getMeasurementValue();
                 timeStamp = r.getTimestamp();
             }
             if ("OxygenSaturation".equals(r.getRecordType())) {
-                Saturation = r.getMeasurementValue();
+                saturation = r.getMeasurementValue();
                 timeStamp = r.getTimestamp();
             }
         }
         List<Alert> alerts = new ArrayList<>();
-        if (SystolicPressure < 90 && Saturation < 92) {
-            String cond = "Hypotensive Hypoxemia: systolic=" + SystolicPressure
-                    + " mmHg, saturation=" + Saturation + "%";
+        if (systolicPressure < 90 && saturation < 92) {
+            String cond = "Hypotensive Hypoxemia: systolic=" + systolicPressure
+                    + " mmHg, saturation=" + saturation + "%";
             alerts.add(new Alert(String.valueOf(patientId), cond, timeStamp));
         }
         return alerts;
