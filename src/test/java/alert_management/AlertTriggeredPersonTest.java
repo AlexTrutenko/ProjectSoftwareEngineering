@@ -7,6 +7,15 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for {@code AlertTriggeredPerson}.
+ *
+ * This code verifies:
+ *
+ *   alerts are triggered when button is pressed.
+ *
+ */
+
 public class AlertTriggeredPersonTest {
     private static PatientRecord rec(int id, double value, long ts) {
         return new PatientRecord(id, value, "AlertButton", ts);
