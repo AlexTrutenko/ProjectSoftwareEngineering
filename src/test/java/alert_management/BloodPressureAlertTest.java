@@ -28,7 +28,7 @@ class BloodPressureAlertTest {
 
     //increasing trend for systolic
     @Test
-    void systolic_increasingTrend() {
+    void systolicIncreasingTrend() {
         BloodPressureAlert trigger = new BloodPressureAlert(true);   // systolic
 
         List<PatientRecord> records = List.of(
@@ -44,7 +44,7 @@ class BloodPressureAlertTest {
 
     //decreasing trend for systolic
     @Test
-    void systolic_decreasingTrend() {
+    void systolicDecreasingTrend() {
         BloodPressureAlert trigger = new BloodPressureAlert(true);   // systolic
 
         List<PatientRecord> records = List.of(
@@ -60,7 +60,7 @@ class BloodPressureAlertTest {
 
     //incresing trend for diastolic
     @Test
-    void diastolic_increasingTrend() {
+    void diastolicIncreasingTrend() {
         BloodPressureAlert trigger = new BloodPressureAlert(false);   // diastolic
 
         List<PatientRecord> records = List.of(
@@ -76,7 +76,7 @@ class BloodPressureAlertTest {
 
     //decreasing trend for diastolic
     @Test
-    void diastolic_decreasingTrend() {
+    void diastolicDecreasingTrend() {
         BloodPressureAlert trigger = new BloodPressureAlert(false);  // diastolic
 
         List<PatientRecord> records = List.of(
@@ -92,7 +92,7 @@ class BloodPressureAlertTest {
 
     //high thresholds for systolic
     @Test
-    void systolic_above180() {
+    void systolicAbove180() {
         BloodPressureAlert trigger = new BloodPressureAlert(true); // systolic
 
         List<Alert> alerts = trigger.evaluate(
@@ -106,7 +106,7 @@ class BloodPressureAlertTest {
 
     //low thresholds for systolic
     @Test
-    void systolic_below90() {
+    void systolicBelow90() {
         BloodPressureAlert trigger = new BloodPressureAlert(true); // systolic
 
         List<Alert> alerts = trigger.evaluate(4,
@@ -119,7 +119,7 @@ class BloodPressureAlertTest {
 
     //high thresholds for diastolic
     @Test
-    void diastolic_above120() {
+    void diastolicAbove120() {
         BloodPressureAlert trigger = new BloodPressureAlert(false); // diastolic
 
         List<Alert> alerts = trigger.evaluate(
@@ -133,7 +133,7 @@ class BloodPressureAlertTest {
 
     //low thresholds for diastolic
     @Test
-    void diastolic_below60() {
+    void diastolicBelow60() {
         BloodPressureAlert trigger = new BloodPressureAlert(false); // diastolic
 
         List<Alert> alerts = trigger.evaluate(

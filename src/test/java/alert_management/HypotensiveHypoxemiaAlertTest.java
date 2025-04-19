@@ -25,7 +25,7 @@ public class HypotensiveHypoxemiaAlertTest {
 
     // both thresholds are breached
     @Test
-    void bothLow_triggersHypotensiveHypoxemiaAlert() {
+    void bothValuesTriggered() {
         HypotensiveHypoxemiaAlert trigger = new HypotensiveHypoxemiaAlert();
 
         List<PatientRecord> records = List.of(
@@ -41,7 +41,7 @@ public class HypotensiveHypoxemiaAlertTest {
 
     // only systolic blood pressure threshold breached
     @Test
-    void onlySystolicLow_noAlert() {
+    void onlySystolicLow() {
         HypotensiveHypoxemiaAlert trigger = new HypotensiveHypoxemiaAlert();
 
         List<Alert> alerts = trigger.evaluate(
@@ -57,7 +57,7 @@ public class HypotensiveHypoxemiaAlertTest {
 
     // only blood oxygen saturation threshold breached
     @Test
-    void onlySaturationLow_noAlert() {
+    void onlySaturationLow() {
         HypotensiveHypoxemiaAlert trigger = new HypotensiveHypoxemiaAlert();
 
         List<Alert> alerts = trigger.evaluate(
@@ -73,7 +73,7 @@ public class HypotensiveHypoxemiaAlertTest {
 
     // none of them is breached
     @Test
-    void bothNormal_noAlert() {
+    void bothNormal() {
         HypotensiveHypoxemiaAlert trigger = new HypotensiveHypoxemiaAlert();
 
         List<Alert> alerts = trigger.evaluate(

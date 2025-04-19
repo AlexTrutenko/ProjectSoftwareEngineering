@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ECGDataAlertTest {
-    private static PatientRecord rec(int id, double value, long ts) {
+    private static PatientRecord rec(int id, double value, long ts){
         return new PatientRecord(id, value, "ECG", ts);
     }
 
     // peak > THRESHOLD_FACTOR * average
     @Test
-    void abnormalPeak_triggersAlert() {
+    void abnormalPeak() {
         ECGDataAlert trigger = new ECGDataAlert();
 
         List<PatientRecord> records = List.of(
@@ -31,16 +31,16 @@ public class ECGDataAlertTest {
         List<Alert> alerts = trigger.evaluate(1, records);
 
         assertTrue(alerts.get(0).getCondition()
-                .contains("abnormally high ECG"));
+                .contains("Measured abnormally high ECG record!"));
     }
 
     //no peak values, so no alert
     @Test
-    void normalSeries_noAlert() {
+    void normalSeries() {
         ECGDataAlert trigger = new ECGDataAlert();
 
         List<PatientRecord> records = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {         // values 10 … 19
+        for (int i = 0; i < 10; i++) {
             records.add(rec(2, 10 + i, i));
         }
 
@@ -51,14 +51,14 @@ public class ECGDataAlertTest {
 
     //high values, but no alert
     @Test
-    void fewerThanWindowSize_noAlert() {
+    void relativelyLowValues() {
         ECGDataAlert trigger = new ECGDataAlert();
 
         List<PatientRecord> records = List.of(
                 rec(3, 50, 1),
                 rec(3, 55, 2),
                 rec(3, 60, 3),
-                rec(3, 70, 4)    // big jump but only 4 samples
+                rec(3, 70, 4)
         );
 
         List<Alert> alerts = trigger.evaluate(3, records);

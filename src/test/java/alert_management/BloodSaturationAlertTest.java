@@ -32,8 +32,8 @@ public class BloodSaturationAlertTest {
         BloodSaturationAlert trigger = new BloodSaturationAlert();
 
         List<PatientRecord> records = List.of(
-                rec(1, 95, 0),      // it should be fine
-                rec(1, 30, 1)       // below threshold
+                rec(1, 95, 0),
+                rec(1, 30, 1)
         );
         List<Alert> alerts = trigger.evaluate(1, records);
 
@@ -43,7 +43,7 @@ public class BloodSaturationAlertTest {
 
     //Test for Rapid Drop:
     @Test
-    void rapidDropWithin() {
+    void rapidDrop() {
 
         BloodSaturationAlert trigger = new BloodSaturationAlert();
 
