@@ -9,6 +9,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Unit tests for {@code ECGDataAlert}.
+ *
+ * This code verifies:
+ *
+ *   alerts are triggered when peaks above certain
+ *   values happen,
+ *   alerts are not triggered when
+ *   values below certain.
+ *
+ */
+
 public class ECGDataAlertTest {
     private static PatientRecord rec(int id, double value, long ts){
         return new PatientRecord(id, value, "ECG", ts);

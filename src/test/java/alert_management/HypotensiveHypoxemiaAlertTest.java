@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  *   alerts are triggered when BOTH thresholds
  *   for Systolic blood pressure nad
- *   blood oxygen saturation are breached
+ *   blood oxygen saturation are breached.
  *
  */
 

@@ -60,7 +60,7 @@ class DataReaderImplTest {
         storage = new RecordingStorage();
     }
 
-    /* ===========================  Happy paths  =========================== */
+
 
     @Test
     void readsSingleRow_correctlyParsesEachField() throws IOException {
@@ -122,53 +122,48 @@ class DataReaderImplTest {
         assertTrue(storage.isEmpty());
     }
 
-    /* ========================  Failure scenarios  ======================== */
 
-    @Nested
-    class FailureScenarios {
+    @Test
+    void nonExistentFile_throwsIOException() {
+        Path missing = tmp.resolve("not_here.csv");
+        assertThrows(IOException.class,
+                () -> new DataReaderImpl(missing.toString()).readData(storage));
+    }
 
-        @Test
-        void nonExistentFile_throwsIOException() {
-            Path missing = tmp.resolve("not_here.csv");
-            assertThrows(IOException.class,
-                    () -> new DataReaderImpl(missing.toString()).readData(storage));
-        }
+    @Test
+    void pathIsDirectory_throwsIOException() throws IOException {
+        Path dir = Files.createDirectory(tmp.resolve("folder"));
+        assertThrows(IOException.class,
+                () -> new DataReaderImpl(dir.toString()).readData(storage));
+    }
 
-        @Test
-        void pathIsDirectory_throwsIOException() throws IOException {
-            Path dir = Files.createDirectory(tmp.resolve("folder"));
-            assertThrows(IOException.class,
-                    () -> new DataReaderImpl(dir.toString()).readData(storage));
-        }
+    @Test
+    void invalidNumericValue_throwsNumberFormatException() throws IOException {
+        Path f = tmp.resolve("badNumber.csv");
+        Files.writeString(
+                f,
+                """
+                   patientId,measurementValue,recordType,timestamp
+                   1,abc,TEMP,1700000000000
+                   """,
+                StandardCharsets.UTF_8);
 
-        @Test
-        void invalidNumericValue_throwsNumberFormatException() throws IOException {
-            Path f = tmp.resolve("badNumber.csv");
-            Files.writeString(
-                    f,
-                    """
-                    patientId,measurementValue,recordType,timestamp
-                    1,abc,TEMP,1700000000000
-                    """,
-                    StandardCharsets.UTF_8);
+        assertThrows(NumberFormatException.class,
+                () -> new DataReaderImpl(f.toString()).readData(storage));
+    }
 
-            assertThrows(NumberFormatException.class,
-                    () -> new DataReaderImpl(f.toString()).readData(storage));
-        }
+    @Test
+    void missingRequiredColumn_causesArrayBounds() throws IOException {
+        Path f = tmp.resolve("missingColumn.csv");
+        Files.writeString(
+                f,
+                """
+                   patientId,measurementValue,recordType
+                   1,55,BP_SYS
+                   """,
+                StandardCharsets.UTF_8);
 
-        @Test
-        void missingRequiredColumn_causesArrayBounds() throws IOException {
-            Path f = tmp.resolve("missingColumn.csv");
-            Files.writeString(
-                    f,
-                    """
-                    patientId,measurementValue,recordType
-                    1,55,BP_SYS
-                    """,
-                    StandardCharsets.UTF_8);
-
-            assertThrows(ArrayIndexOutOfBoundsException.class,
-                    () -> new DataReaderImpl(f.toString()).readData(storage));
-        }
+        assertThrows(ArrayIndexOutOfBoundsException.class,
+                () -> new DataReaderImpl(f.toString()).readData(storage));
     }
 }

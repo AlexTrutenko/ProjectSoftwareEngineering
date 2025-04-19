@@ -4,7 +4,7 @@ import com.dataManagement.PatientRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlertTriggered implements AlertTriggerCondition {
+public class AlertTriggeredPerson implements AlertTriggerCondition {
     @Override
     public List<Alert> evaluate(int patientId, List<PatientRecord> records) {
         List<Alert> alerts = new ArrayList<>();

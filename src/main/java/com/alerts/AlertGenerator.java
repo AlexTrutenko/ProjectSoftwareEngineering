@@ -37,7 +37,7 @@ public class AlertGenerator {
                 new BloodSaturationAlert(),
                 new HypotensiveHypoxemiaAlert(),
                 new ECGDataAlert(),
-                new AlertTriggered()
+                new AlertTriggeredPerson()
         );
     }
 
