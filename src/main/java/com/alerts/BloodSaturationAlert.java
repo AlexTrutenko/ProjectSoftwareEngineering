@@ -29,7 +29,8 @@ public class BloodSaturationAlert implements AlertTriggerCondition {
         for (int i = 1; i < satRecords.size(); i++) {
             PatientRecord prev = satRecords.get(i - 1);
             PatientRecord curr = satRecords.get(i);
-            if (curr.getTimestamp() - prev.getTimestamp() <= MS && prev.getMeasurementValue() - curr.getMeasurementValue() >= 5) {
+            if (curr.getTimestamp() - prev.getTimestamp() <= MS &&
+                    prev.getMeasurementValue() - curr.getMeasurementValue() >= 5) {
                 String cond = "Rapid Oxygen Saturation Drop: "
                         + prev.getMeasurementValue() + "% to "
                         + curr.getMeasurementValue();
