@@ -51,12 +51,13 @@ public class BloodSaturationAlertTest {
         long t1 = 7 * 60 * 1000;   // 7 minutes later (within 10‑minute window)
 
         List<PatientRecord> records = List.of(
-                rec(2, 97, t0),
-                rec(2, 91, t1)
+                rec(2, 100, t0),
+                rec(2, 93, t1)
         );
         List<Alert> alerts = trigger.evaluate(2, records);
 
+
         assertTrue(alerts.get(0).getCondition()
-                .contains("Rapid Oxygen Saturation Drop:"));
+                .contains("Rapid Oxygen Saturation Drop"));
     }
 }

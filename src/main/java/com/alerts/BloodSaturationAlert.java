@@ -20,7 +20,7 @@ public class BloodSaturationAlert implements AlertTriggerCondition {
                 if (r.getMeasurementValue() < 92) {
                     String cond = "Low Oxygen Saturation: " + r.getMeasurementValue() + "%";
                     alerts.add(new Alert(String.valueOf(patientId), cond, r.getTimestamp()));
-                    break;
+
                 }
             }
         }
@@ -34,7 +34,7 @@ public class BloodSaturationAlert implements AlertTriggerCondition {
                         + prev.getMeasurementValue() + "% to "
                         + curr.getMeasurementValue();
                 alerts.add(new Alert(String.valueOf(patientId), cond, curr.getTimestamp()));
-                break;
+
             }
         }
 
