@@ -48,9 +48,9 @@ class BloodPressureAlertTest {
         BloodPressureAlert trigger = new BloodPressureAlert(true);   // systolic
 
         List<PatientRecord> records = List.of(
-                rec(1, 160, "SystolicPressure", 1),
-                rec(1, 145, "SystolicPressure", 2),
-                rec(1, 129, "SystolicPressure", 3)
+                rec(1, 125, "SystolicPressure", 1),
+                rec(1, 112, "SystolicPressure", 2),
+                rec(1, 100, "SystolicPressure", 3)
         );
 
         List<Alert> alerts = trigger.evaluate(1, records);
