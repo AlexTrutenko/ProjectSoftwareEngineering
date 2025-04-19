@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * This code verifies:
  *
  *   alerts are handled for each type of alert
- *   for the method evaluate data.
+ *   for the method evaluateData.
  *
  */
 
