@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for {@code Pation}.
+ * Unit tests for {@code Patient}.
  *
  * This code verifies:
  *
