@@ -27,6 +27,13 @@ public class AlertGenerator {
      *
      * @param dataStorage the data storage system that provides access to patient
      *                    data
+     *
+     * Initialize alert conditions:
+     *     - Blood pressure (systolic & diastolic)
+     *     - Blood saturation
+     *     - Hypotensive hypoxemia
+     *     - ECG anomalies
+     *     - Manual alert‐button events
      */
     public AlertGenerator(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
@@ -51,6 +58,7 @@ public class AlertGenerator {
      *
      * @param patient the patient data to evaluate for alert conditions
      */
+
     public void evaluateData(Patient patient) {
         int patientId = patient.getPatientId();
         long now = System.currentTimeMillis();
