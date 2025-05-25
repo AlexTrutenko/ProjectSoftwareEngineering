@@ -11,7 +11,6 @@ import com.cardioGenerator.generators.BloodSaturationDataGenerator;
 import com.cardioGenerator.generators.BloodLevelsDataGenerator;
 import com.cardioGenerator.generators.ECGDataGenerator;
 import com.cardioGenerator.outputs.*;
-import com.cardioGenerator.outputs.FileOutputStrategy;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +33,20 @@ public class HealthDataSimulator {
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
+    private static HealthDataSimulator instance; //instance variable
+
+
+    private HealthDataSimulator(){} //Closed constructor
+    /**
+     * Method of obtaining a single method
+     * @return single instance of HealthDataSimulator
+     */
+    public static synchronized HealthDataSimulator getInstance() {
+        if (instance == null) {
+            instance = new HealthDataSimulator();
+        }
+        return instance;
+    }
      /**The starting point for the application. Parses arguments, initialize patient IDs, 
      * randomizes the order of patients and finally, schedules health data generation tasks for each patient. 
      * @throws IOException if the file output directories cannot be created.
