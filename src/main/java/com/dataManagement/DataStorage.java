@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.crypto.Data;
+
 import com.alerts.AlertGenerator;
 
 /**
@@ -14,13 +17,25 @@ import com.alerts.AlertGenerator;
  */
 public class DataStorage {
     private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private static DataStorage instance; // Static field to hold the single instance of the class
 
     /**
-     * Constructs a new instance of DataStorage, initializing the underlying storage
-     * structure.
+     * Private constructor prevents instantiation from outside the class
      */
-    public DataStorage() {
+
+    private DataStorage() {
         this.patientMap = new HashMap<>();
+    }
+    
+    /**
+     * Provides access to single instance of DataStorage
+     * @return the single instance of DataStorage
+     */
+    public static synchronized DataStorage getInstance(){
+        if(instance == null){
+            instance = new DataStorage();
+        }
+        return instance;
     }
 
     /**
