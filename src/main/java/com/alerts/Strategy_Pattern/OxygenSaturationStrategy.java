@@ -19,7 +19,7 @@ public class OxygenSaturationStrategy implements AlertStrategy{
      * @return a list of alerts generated for low oxygen saturation
      */
     @Override
-    public List<Alert> checkAlert(String patientID, List<PatientRecord> records){
+    public List<Alert> checkAlert(String patientId, List<PatientRecord> records){
         List<Alert> alerts = new ArrayList<>();
         for(PatientRecord r : records){
             if("OxygenSaturation".equals(r.getRecordType())){
