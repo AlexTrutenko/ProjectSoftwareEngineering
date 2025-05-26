@@ -25,7 +25,7 @@ public class OxygenSaturationStrategy implements AlertStrategy{
             if("OxygenSaturation".equals(r.getRecordType())){
                 double oxygenLevel = r.getMeasurementValue();
                 if(oxygenLevel < saturationLevelBoundary){
-                    alerts.add(new Alert(patientID, "Oxygen Saturation. Oxygen level: " + oxygenLevel, r.getTimestamp()));
+                    alerts.add(new Alert(patientId, "Oxygen Saturation. Oxygen level: " + oxygenLevel, r.getTimestamp()));
                 }
             }
         }
