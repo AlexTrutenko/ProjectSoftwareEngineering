@@ -2,7 +2,7 @@ package com.alerts.Factory_Pattern;
 
 import com.alerts.Alert;
 /**
- * Factory Factory for creating blood pressure alerts.
+ * Factory for creating blood pressure alerts.
  */
 
 public class ECGAlertFactory extends AlertFactory{
@@ -12,7 +12,7 @@ public class ECGAlertFactory extends AlertFactory{
      * @param patientId  the ID of the patient
      * @param condition  the alert condition
      * @param timestamp  the time the alert was generated (in milliseconds)
-     * @return a Blood Pressure Alert instance
+     * @return an ECG Alert instance
      */
     @Override
     public Alert createAlert(String patientId, String condition, long timestamp){
