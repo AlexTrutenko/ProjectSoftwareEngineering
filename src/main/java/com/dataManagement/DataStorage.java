@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.crypto.Data;
 
@@ -16,7 +17,10 @@ import com.alerts.AlertGenerator;
  * patient IDs.
  */
 public class DataStorage {
-    private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+     /**
+     * Thread-safe map storing patient objects indexed by their unique patient ID.
+     */
+    private ConcurrentHashMap<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
     private static DataStorage instance; // Static field to hold the single instance of the class
 
     /**
@@ -24,7 +28,7 @@ public class DataStorage {
      */
 
     private DataStorage() {
-        this.patientMap = new HashMap<>();
+        this.patientMap = new ConcurrentHashMap<>();
     }
     
     /**
@@ -40,9 +44,9 @@ public class DataStorage {
 
     /**
      * Adds or updates patient data in the storage.
-     * If the patient does not exist, a new Patient object is created and added to
-     * the storage.
+     * If the patient does not exist, a new Patient object is created and added to the storage.
      * Otherwise, the new data is added to the existing patient's records.
+     * This method is synchronized to prevent concurrent modifications.
      *
      * @param patientId        the unique identifier of the patient
      * @param measurementValue the value of the health metric being recorded
@@ -51,7 +55,7 @@ public class DataStorage {
      * @param timestamp        the time at which the measurement was taken, in
      *                         milliseconds since the Unix epoch
      */
-    public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
+    public synchronized void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
         Patient patient = patientMap.get(patientId);
         if (patient == null) {
             patient = new Patient(patientId);
@@ -73,7 +77,7 @@ public class DataStorage {
      * @return a list of PatientRecord objects that fall within the specified time
      *         range
      */
-    public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
+    public synchronized List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
         if (patient != null) {
             return patient.getRecords(startTime, endTime);
@@ -86,7 +90,7 @@ public class DataStorage {
      *
      * @return a list of all patients
      */
-    public List<Patient> getAllPatients() {
+    public synchronized List<Patient> getAllPatients() {
         return new ArrayList<>(patientMap.values());
     }
 
@@ -100,7 +104,7 @@ public class DataStorage {
     public static void main(String[] args) {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage
