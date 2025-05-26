@@ -57,7 +57,7 @@ public class RepeatedAlertDecorator extends AlertDecorator{
      */
 
     public long getRepeatInterval() {
-        return amountOfRepeats;
+        return  repeatInterval;
     }
     /**
      * Checks if all repeats have been completed.
